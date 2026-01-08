@@ -7,6 +7,7 @@ import { startManifestPlugin } from './start-manifest-plugin/plugin'
 import { ENTRY_POINTS, VITE_ENVIRONMENT_NAMES } from './constants'
 import { tanStackStartRouter } from './start-router-plugin/plugin'
 import { loadEnvPlugin } from './load-env-plugin/plugin'
+import { envHotReloadPlugin } from './env-hot-reload-plugin/plugin'
 import { devServerPlugin } from './dev-server-plugin/plugin'
 import { previewServerPlugin } from './preview-server-plugin/plugin'
 import { parseStartConfig } from './schema'
@@ -374,6 +375,7 @@ export function TanStackStartVitePluginCore(
     }),
     tanStackStartRouter(startPluginOpts, getConfig, corePluginOpts),
     loadEnvPlugin(),
+    envHotReloadPlugin(),
     startManifestPlugin({
       getClientBundle: () => getBundle(VITE_ENVIRONMENT_NAMES.client),
       getConfig,

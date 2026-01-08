@@ -18,6 +18,7 @@ import { Route as RawStreamRouteImport } from './routes/raw-stream'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as LinksRouteImport } from './routes/links'
 import { Route as InlineScriptsRouteImport } from './routes/inline-scripts'
+import { Route as EnvTestRouteImport } from './routes/env-test'
 import { Route as DeferredRouteImport } from './routes/deferred'
 import { Route as ClientOnlyRouteImport } from './routes/client-only'
 import { Route as LayoutRouteImport } from './routes/_layout'
@@ -105,6 +106,11 @@ const LinksRoute = LinksRouteImport.update({
 const InlineScriptsRoute = InlineScriptsRouteImport.update({
   id: '/inline-scripts',
   path: '/inline-scripts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnvTestRoute = EnvTestRouteImport.update({
+  id: '/env-test',
+  path: '/env-test',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeferredRoute = DeferredRouteImport.update({
@@ -330,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/search-params': typeof SearchParamsRouteRouteWithChildren
   '/client-only': typeof ClientOnlyRoute
   '/deferred': typeof DeferredRoute
+  '/env-test': typeof EnvTestRoute
   '/inline-scripts': typeof InlineScriptsRoute
   '/links': typeof LinksRoute
   '/posts': typeof PostsRouteWithChildren
@@ -379,6 +386,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/client-only': typeof ClientOnlyRoute
   '/deferred': typeof DeferredRoute
+  '/env-test': typeof EnvTestRoute
   '/inline-scripts': typeof InlineScriptsRoute
   '/links': typeof LinksRoute
   '/scripts': typeof ScriptsRoute
@@ -427,6 +435,7 @@ export interface FileRoutesById {
   '/_layout': typeof LayoutRouteWithChildren
   '/client-only': typeof ClientOnlyRoute
   '/deferred': typeof DeferredRoute
+  '/env-test': typeof EnvTestRoute
   '/inline-scripts': typeof InlineScriptsRoute
   '/links': typeof LinksRoute
   '/posts': typeof PostsRouteWithChildren
@@ -481,6 +490,7 @@ export interface FileRouteTypes {
     | '/search-params'
     | '/client-only'
     | '/deferred'
+    | '/env-test'
     | '/inline-scripts'
     | '/links'
     | '/posts'
@@ -530,6 +540,7 @@ export interface FileRouteTypes {
     | '/'
     | '/client-only'
     | '/deferred'
+    | '/env-test'
     | '/inline-scripts'
     | '/links'
     | '/scripts'
@@ -577,6 +588,7 @@ export interface FileRouteTypes {
     | '/_layout'
     | '/client-only'
     | '/deferred'
+    | '/env-test'
     | '/inline-scripts'
     | '/links'
     | '/posts'
@@ -631,6 +643,7 @@ export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   ClientOnlyRoute: typeof ClientOnlyRoute
   DeferredRoute: typeof DeferredRoute
+  EnvTestRoute: typeof EnvTestRoute
   InlineScriptsRoute: typeof InlineScriptsRoute
   LinksRoute: typeof LinksRoute
   PostsRoute: typeof PostsRouteWithChildren
@@ -712,6 +725,13 @@ declare module '@tanstack/react-router' {
       path: '/inline-scripts'
       fullPath: '/inline-scripts'
       preLoaderRoute: typeof InlineScriptsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/env-test': {
+      id: '/env-test'
+      path: '/env-test'
+      fullPath: '/env-test'
+      preLoaderRoute: typeof EnvTestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deferred': {
@@ -1172,6 +1192,7 @@ const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   ClientOnlyRoute: ClientOnlyRoute,
   DeferredRoute: DeferredRoute,
+  EnvTestRoute: EnvTestRoute,
   InlineScriptsRoute: InlineScriptsRoute,
   LinksRoute: LinksRoute,
   PostsRoute: PostsRouteWithChildren,

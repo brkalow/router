@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
-    "dev:e2e": "vite dev",
+    "dev:e2e": "vite dev --port $PORT",
     "build": "vite build && tsc --noEmit",
     "build:spa": "MODE=spa vite build && tsc --noEmit",
     "build:prerender": "MODE=prerender vite build && tsc --noEmit",
@@ -18,6 +18,7 @@
     "test:e2e:ssrMode": "rm -rf port*.txt; playwright test --project=chromium",
     "test:e2e:prerender": "rm -rf port*.txt; MODE=prerender playwright test --project=chromium",
     "test:e2e:preview": "rm -rf port*.txt; MODE=preview playwright test --project=chromium",
+    "test:e2e:devMode": "rm -rf port*.txt; MODE=dev playwright test --project=chromium tests/env-hot-reload.spec.ts",
     "test:e2e": "pnpm run test:e2e:spaMode && pnpm run test:e2e:ssrMode && pnpm run test:e2e:prerender && pnpm run test:e2e:preview"
   },
   "dependencies": {

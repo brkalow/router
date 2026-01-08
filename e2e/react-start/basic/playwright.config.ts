@@ -6,10 +6,11 @@ import {
 import { isSpaMode } from './tests/utils/isSpaMode'
 import { isPrerender } from './tests/utils/isPrerender'
 import { isPreview } from './tests/utils/isPreview'
+import { isDevMode } from './tests/utils/isDevMode'
 import packageJson from './package.json' with { type: 'json' }
 
 const PORT = await getTestServerPort(
-  `${packageJson.name}${isSpaMode ? '_spa' : ''}${isPreview ? '_preview' : ''}`,
+  `${packageJson.name}${isSpaMode ? '_spa' : ''}${isPreview ? '_preview' : ''}${isDevMode ? '_dev' : ''}`,
 )
 const START_PORT = await getTestServerPort(
   `${packageJson.name}${isSpaMode ? '_spa_start' : ''}`,
@@ -20,8 +21,10 @@ const spaModeCommand = `pnpm build:spa && pnpm start:spa`
 const ssrModeCommand = `pnpm build && pnpm start`
 const prerenderModeCommand = `pnpm run test:e2e:startDummyServer && pnpm build:prerender && pnpm run test:e2e:stopDummyServer && pnpm start`
 const previewModeCommand = `pnpm build && pnpm preview --port ${PORT}`
+const devModeCommand = `pnpm dev:e2e`
 
 const getCommand = () => {
+  if (isDevMode) return devModeCommand
   if (isSpaMode) return spaModeCommand
   if (isPrerender) return prerenderModeCommand
   if (isPreview) return previewModeCommand
@@ -30,6 +33,7 @@ const getCommand = () => {
 console.log('running in spa mode: ', isSpaMode.toString())
 console.log('running in prerender mode: ', isPrerender.toString())
 console.log('running in preview mode: ', isPreview.toString())
+console.log('running in dev mode: ', isDevMode.toString())
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
