@@ -1,5 +1,5 @@
 import { loadEnv } from 'vite'
-import type { Plugin, UserConfig } from 'vite'
+import type { Plugin } from 'vite'
 
 // Track keys loaded from .env files across server restarts
 const loadedEnvKeys = new Set<string>()

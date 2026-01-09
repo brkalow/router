@@ -47,7 +47,7 @@ export function envHotReloadPlugin(): Plugin {
 
       // Watch .env files
       for (const file of envFiles) {
-        server.watcher.add(`${resolvedConfig.root}/${file}`)
+        server.watcher.add(path.join(resolvedConfig.root, file))
       }
 
       const handleEnvChange = (filePath: string) => {
